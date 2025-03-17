@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>音量ボタン検出テスト</title>
+    <title>音量ボタン連携</title>
 </head>
 <body>
     <h1>音量ボタン連携</h1>
@@ -16,16 +16,37 @@
             return params.get(name);
         }
 
+        function updateCount() {
+            let count = localStorage.getItem("count") || 0;
+            count = parseInt(count) + 1;
+            localStorage.setItem("count", count);
+            document.getElementById("count").textContent = count;
+            document.getElementById("status").textContent = "音量ボタンが押されました！";
+        }
+
         window.onload = function() {
             const trigger = getQueryParam("trigger");
             if (trigger === "1") {
-                let count = localStorage.getItem("count") || 0;
-                count = parseInt(count) + 1;
-                localStorage.setItem("count", count);
-                document.getElementById("count").textContent = count;
-                document.getElementById("status").textContent = "音量ボタンが押されました！";
+                updateCount();
+
+                // ページリダイレクト（同じURLに戻す）
+                setTimeout(() => {
+                    window.location.replace("https://your-github-pages-site.com/");
+                }, 500); // 0.5秒後にリダイレクト
+            } else {
+                // 保存されたカウントを表示
+                document.getElementById("count").textContent = localStorage.getItem("count") || 0;
             }
         };
+    </script>
+
+    <button onclick="resetCount()">リセット</button>
+
+    <script>
+        function resetCount() {
+            localStorage.setItem("count", 0);
+            document.getElementById("count").textContent = "0";
+        }
     </script>
 </body>
 </html>
