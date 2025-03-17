@@ -28,11 +28,6 @@
             const trigger = getQueryParam("trigger");
             if (trigger === "1") {
                 updateCount();
-
-                // ページリダイレクト（同じURLに戻す）
-                setTimeout(() => {
-                    window.location.replace("https://eguchi-kd.github.io/kin/");
-                }, 500); // 0.5秒後にリダイレクト
             } else {
                 // 保存されたカウントを表示
                 document.getElementById("count").textContent = localStorage.getItem("count") || 0;
