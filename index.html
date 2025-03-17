@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>音量ボタンカウンター</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        #counter {
-            font-size: 48px;
-            margin-top: 20px;
-        }
-    </style>
+    <title>音量ボタン検出テスト</title>
 </head>
 <body>
-    <h1>音量ボタン「+」でカウントアップ</h1>
-    <div id="counter">0</div>
+    <h1>音量ボタン連携</h1>
+    <p id="status">音量ボタンが押されていません</p>
+    <p>カウント: <span id="count">0</span></p>
+
     <script>
-    window.onload = function() {
-        const params = new URLSearchParams(window.location.search);
-        if (params.get("trigger") === "1") {
-            document.getElementById("status").textContent = "音量ボタンが押されました！";
+        function getQueryParam(name) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(name);
         }
-    };
+
+        window.onload = function() {
+            const trigger = getQueryParam("trigger");
+            if (trigger === "1") {
+                let count = localStorage.getItem("count") || 0;
+                count = parseInt(count) + 1;
+                localStorage.setItem("count", count);
+                document.getElementById("count").textContent = count;
+                document.getElementById("status").textContent = "音量ボタンが押されました！";
+            }
+        };
     </script>
 </body>
 </html>
