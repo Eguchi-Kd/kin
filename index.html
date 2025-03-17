@@ -20,13 +20,12 @@
     <h1>音量ボタン「+」でカウントアップ</h1>
     <div id="counter">0</div>
     <script>
-        let count = 0;
-        document.addEventListener("keydown", function(event) {
-            if (event.key === "AudioVolumeUp") {
-                count++;
-                document.getElementById("counter").textContent = count;
-            }
-        });
+    window.onload = function() {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get("trigger") === "1") {
+            document.getElementById("status").textContent = "音量ボタンが押されました！";
+        }
+    };
     </script>
 </body>
 </html>
